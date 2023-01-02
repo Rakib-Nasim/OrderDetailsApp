@@ -1,0 +1,117 @@
+<section>
+  <div class="container">
+    <div class="card bg-grey" style="border: none;">
+      <div class="card-heade bg-success" style="border: none;"><h3 class="text-center mt-4 mb-4">OrderEntry</h3></div>
+      <div class="card-body bg-info">
+        <form [formGroup]="orderForm">
+        <div class="row">
+          <div class="col-md-5 text-center">
+            <div class="text-start mb-2 ">Customer Name</div>
+            <div class="">
+              <ng-select formControlName="customerId" [items]="ListOfCustomer" 
+              bindLabel="customerName" bindValue="customerId" class="from-control"></ng-select>
+            </div>
+          </div>
+          <div class="col-md-2 text-center"></div>
+          <div class="col-md-5">
+            <div class="mb-2 text-start" >Order Address</div>
+              <input formControlName="orderAdderss" type="text" class="from-control" style="width:100%">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-5 text-center">
+            <div class="text-start mb-2 ">Order Number</div>
+            <div class="">
+              <input formControlName="orderNumber" type="text" class="from-control" style="width: 100%;" placeholder="Enter Order number">
+            </div>
+          </div>
+          <div class="col-md-2 text-center"></div>
+          <div class="col-md-5">
+            <div class="mb-2 text-start" >Order Date</div>
+              <input formControlName="orderDate" type="date" class="from-control" style="width:100%" >
+          </div>
+        </div>
+        <div class="row" formArrayName="orderItems">
+          <div class="col-md-3" [formGroup]="itemForm">
+            <div class="text-start mb-2">Items</div>
+              <ng-select [items]="itemslists" formControlName="itemNames" bindLabel="itemName" bindValue="itemId"
+              [placeholder]="'Select....'" (change)="changevalue($event)"></ng-select>
+          </div>
+          <div class="col-md-2">
+            <div class="text-start mb-2 ">Quantity</div>
+            <input type="number" formControlName="quentity"  (change)="changeTotal($event)" style="width: 100%;">
+          </div>
+          <div class="col-md-3">
+            <div class="text-start mb-2 ">Unit Price</div>
+            <input type="number" [value]="itemPrices" formControlName="itemPrice" class="from-control" readonly style="width: 100%;">
+          </div>
+          <div class="col-md-2">
+            <div class="text-start mb-2 ">Net Price</div>
+            <input type="number" [value]="itemTotalPrice" formControlName="totalPrice"  class="from-control" readonly style="width: 100%;">
+          </div>
+          <div class="col-md-2">
+            <div class="text-start mb-2 ">Add On Your Cart</div>
+            <button class="btn-success ml-2" style="width: 80%;" (click)="addItem()">Click</button>
+          </div>
+        </div>
+
+        <div class="card-header mt-4">
+          <h3>Your Shoping Cart</h3>  
+        </div>
+        <table class="table bg-grey text-center">
+          <tr class="table-head bg-white">
+            <th>Item</th>
+            <th>Quentity</th>
+            <th>Unit Price</th>
+            <th>Total</th>
+            <th>Action</th>
+          </tr>
+          <tr class="table-body" *ngFor="let item of ListOfItems ;let i=index" style="background-color: rgb(236, 233, 233);">
+              <td >{{item.itemNames}}</td>
+              <td>{{item.quentity}}</td>
+              <td>{{item.itemPrice}}</td>
+              <td>{{item.totalPrice}}</td>
+              <td>
+                <button class="btn btn-danger" style="color: black;" (click)="deleteItem(i)">Delete</button>
+              </td>
+          </tr>
+        </table>
+        <div class="row" style="margin-top: 50px;">
+          <div class="col-md-2 ">
+            <button class="btn btn-success" (click)="saveOrder()">Save Order</button>
+          </div>
+          <div class="col-md-6"></div>
+          <div class="col-md-4 row" style="padding: 0px;margin: 0px;">
+            <div class="col-md-3">
+                 <label> Total Bill</label>
+            </div>
+            <div class="col-md-9">
+              <input formControlName="totalPrice" [value]="nettotalPrice" type="number" readonly style="width: 100%;height: 100%;">
+            </div>
+          </div>
+        </div>
+      </form>
+      <!-- <div class="card-header mt-4">
+        <h3>Your Shoping Cart</h3>  
+      </div>
+      <table class="table bg-grey">
+        <tr class="table-head bg-white">
+          <th>Item</th>
+          <th>Quentity</th>
+          <th>Unit Price</th>
+          <th>Total</th>
+          <th>Action</th>
+        </tr>
+        <tr *ngFor="let item of ListOfItems" style="background-color: rgb(236, 233, 233);">
+            <td>{{item.itemNames}}</td>
+            <td>{{item.quentity}}</td>
+            <td>{{item.itemPrice}}</td>
+            <td>{{item.totalPrice}}</td>
+            <td>Action</td>
+        </tr>
+      </table> -->
+      
+      </div>
+    </div>
+  </div>
+</section>
